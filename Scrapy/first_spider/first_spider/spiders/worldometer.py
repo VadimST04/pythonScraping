@@ -1,5 +1,4 @@
 import scrapy
-import pandas
 
 
 class WorldometerSpider(scrapy.Spider):
@@ -24,13 +23,8 @@ class WorldometerSpider(scrapy.Spider):
             year = row.xpath('.//td[1]/text()').get()
             population = row.xpath('.//td[2]/strong/text()').get()
 
-
-
             yield {
                 'country': country,
                 'year': year,
                 "population": population,
             }
-
-
-
