@@ -9,7 +9,18 @@ import sqlite3
 
 
 class SQLitePipeline:
+    """
+    This pipeline is designed to store country population data, including country name, year, and population,
+    into SQLite database and into CSV file.
+    """
+
     def open_spider(self, spider):
+        """
+        Open the spider and set up the database connection and lists to store data for CSV file.
+        Also create table in database if it does not exist there.
+        :param spider: The spider instances.
+        :return: None
+        """
         self.connection = sqlite3.connect('countries_population.db')
         self.cursor = self.connection.cursor()
 
@@ -27,6 +38,12 @@ class SQLitePipeline:
         self.populations = []
 
     def close_spider(self, spider):
+        """
+        Close the spider and finalize the database connection.
+        Also add data to DataFrame and then to CSV file.
+        :param spider: The spider instances.
+        :return: None
+        """
         self.connection.close()
 
         df = pandas.DataFrame({
@@ -37,6 +54,12 @@ class SQLitePipeline:
         df.to_csv('countries_population.csv', index_label='index')
 
     def process_item(self, item, spider):
+        """
+        Store the scraped data in the database and add data to the appropriate list.
+        :param item: The scraped items.
+        :param spider: The spider instances.
+        :return: None
+        """
         self.cursor.execute('''
             INSERT INTO population (country, year, population) VALUES(?,?,?)
         ''', (

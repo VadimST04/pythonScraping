@@ -4,6 +4,11 @@ import pandas
 
 
 def main():
+    """
+    This function uses the Selenium library to scrape data about football matches and then converts
+    data to csv file.
+    :return: None
+    """
     website = 'https://www.adamchoi.co.uk/overs/detailed'
     path = 'C:/Users/Вадим/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe'
     service = Service(executable_path=path)

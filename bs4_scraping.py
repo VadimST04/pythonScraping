@@ -3,6 +3,11 @@ import requests
 
 
 def bs4_config(path=''):
+    """
+    This function configs a parsing process by making a full URL.
+    :param path: Relative URL path of the web page (Default: empty string).
+    :return: BeautifulSoup object with html content and parser.
+    """
     root_url = 'https://subslikescript.com/'
     website = f'{root_url}{path}'
     content = requests.get(website).text
@@ -10,6 +15,11 @@ def bs4_config(path=''):
 
 
 def main():
+    """
+    This function uses BeautifulSoup library and scrapes movie transcripts from multiple pages of a website,
+    extracts the title and transcript of each movie, and saves them to separate text files.
+    :return: None
+    """
     soup = bs4_config('movies')
     last_page = soup.select_one('li.page-item:nth-last-child(2)').get_text()
     for page in range(1, int(last_page) + 1):
